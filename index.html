@@ -133,6 +133,20 @@
             flex: 1;
         }
         
+        .option-display {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .option-display label {
+            cursor: default;
+            flex: 1;
+        }
+        
         .priority-input {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -257,7 +271,18 @@
             <p>📝 <strong>소요시간:</strong> 약 5-7분 | 📱 <strong>참여대상:</strong> 중학생부터 어르신까지 | 📞 <strong>문의:</strong> 041-940-2033</p>
         </div>
         
-        <form class="form-content" id="surveyForm">
+        <form class="form-content" id="surveyForm" method="POST" novalidate>
+    <!-- 에러 메시지 표시용 -->
+    <div id="errorContainer" style="
+        display:none;
+        background:#fce4e4;
+        color:#c0392b;
+        border:1px solid #e74c3c;
+        padding:15px;
+        margin-bottom:20px;
+        border-radius:8px;
+        font-size:0.95em;">
+    </div>
             <!-- 기본 정보 섹션 -->
             <div class="section">
                 <div class="section-title">👤 기본 정보</div>
@@ -523,6 +548,163 @@
                     <div class="question-subtitle">각 순위별로 하나씩 선택해주세요</div>
                     <div class="priority-input">
                         <div class="priority-item">
+                            <strong>1순위</strong>
+                            <select name="priority_1" required>
+                                <option value="">선택하세요</option>
+                                <option value="education">① 교육·평생학습</option>
+                                <option value="culture_sports">② 문화·체육·관광</option>
+                                <option value="environment">③ 환경·안전</option>
+                                <option value="health_welfare">④ 보건·복지</option>
+                                <option value="agriculture">⑤ 농림·축산</option>
+                                <option value="infrastructure">⑥ 도로·교통·정보화</option>
+                                <option value="economy">⑦ 지역경제·일자리</option>
+                                <option value="youth">⑧ 청소년·청년</option>
+                                <option value="housing">⑨ 주거·정주여건</option>
+                            </select>
+                        </div>
+                        <div class="priority-item">
+                            <strong>2순위</strong>
+                            <select name="priority_2" required>
+                                <option value="">선택하세요</option>
+                                <option value="education">① 교육·평생학습</option>
+                                <option value="culture_sports">② 문화·체육·관광</option>
+                                <option value="environment">③ 환경·안전</option>
+                                <option value="health_welfare">④ 보건·복지</option>
+                                <option value="agriculture">⑤ 농림·축산</option>
+                                <option value="infrastructure">⑥ 도로·교통·정보화</option>
+                                <option value="economy">⑦ 지역경제·일자리</option>
+                                <option value="youth">⑧ 청소년·청년</option>
+                                <option value="housing">⑨ 주거·정주여건</option>
+                            </select>
+                        </div>
+                        <div class="priority-item">
+                            <strong>3순위</strong>
+                            <select name="priority_3" required>
+                                <option value="">선택하세요</option>
+                                <option value="education">① 교육·평생학습</option>
+                                <option value="culture_sports">② 문화·체육·관광</option>
+                                <option value="environment">③ 환경·안전</option>
+                                <option value="health_welfare">④ 보건·복지</option>
+                                <option value="agriculture">⑤ 농림·축산</option>
+                                <option value="infrastructure">⑥ 도로·교통·정보화</option>
+                                <option value="economy">⑦ 지역경제·일자리</option>
+                                <option value="youth">⑧ 청소년·청년</option>
+                                <option value="housing">⑨ 주거·정주여건</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <div class="option-display">
+                            <label>① 교육·평생학습</label>
+                        </div>
+                        <div class="option-display">
+                            <label>② 문화·체육·관광</label>
+                        </div>
+                        <div class="option-display">
+                            <label>③ 환경·안전</label>
+                        </div>
+                        <div class="option-display">
+                            <label>④ 보건·복지</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑤ 농림·축산</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑥ 도로·교통·정보화</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑦ 지역경제·일자리</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑧ 청소년·청년</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑨ 주거·정주여건</label>
+                        </div>
+                        <div class="option-display" style="display: flex; align-items: center;">
+                            <label style="margin-right: 10px;">기타</label>
+                            <input type="text" name="main_priority_other" placeholder="기타 의견을 적어주세요" style="padding: 8px; border: 1px solid #ddd; border-radius: 5px; flex: 1;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 분야별 세부 우선순위 섹션 -->
+            <div class="section">
+                <div class="section-title">📋 분야별 세부 우선순위</div>
+                <div class="question-subtitle">관심 있는 분야의 세부 사업 우선순위를 선택해주세요</div>
+                
+                <div class="question">
+                    <div class="question-title">11. 교육·평생학습 분야 우선 투자사업 2개</div>
+                    <div class="priority-input" style="grid-template-columns: 1fr 1fr;">
+                        <div class="priority-item">
+                            <strong>1순위</strong>
+                            <select name="education_1">
+                                <option value="">선택하세요</option>
+                                <option value="scholarship">① 장학금 지원 확대</option>
+                                <option value="lifelong_education">② 평생교육 프로그램 확충</option>
+                                <option value="school_facilities">③ 학교시설 개선 지원</option>
+                                <option value="after_school">④ 방과후 돌봄 서비스</option>
+                                <option value="adult_education">⑤ 성인 직업교육</option>
+                                <option value="education_other">⑥ 기타</option>
+                            </select>
+</div>
+                        <div class="priority-item">
+                            <strong>2순위</strong>
+                            <select name="education_2">
+                                <option value="">선택하세요</option>
+                                <option value="scholarship">① 장학금 지원 확대</option>
+                                <option value="lifelong_education">② 평생교육 프로그램 확충</option>
+                                <option value="school_facilities">③ 학교시설 개선 지원</option>
+                                <option value="after_school">④ 방과후 돌봄 서비스</option>
+                                <option value="adult_education">⑤ 성인 직업교육</option>
+                                <option value="education_other">⑥ 기타</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <div class="option-display">
+                            <label>① 장학금 지원 확대</label>
+                        </div>
+                        <div class="option-display">
+                            <label>② 평생교육 프로그램 확충</label>
+                        </div>
+                        <div class="option-display">
+                            <label>③ 학교시설 개선 지원</label>
+                        </div>
+                        <div class="option-display">
+                            <label>④ 방과후 돌봄 서비스</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑤ 성인 직업교육</label>
+                        </div>
+                        <div class="option-display" style="display: flex; align-items: center;">
+                            <label style="margin-right: 10px;">⑥ 기타</label>
+                            <input type="text" name="education_other_text" placeholder="기타 의견을 적어주세요" style="padding: 8px; border: 1px solid #ddd; border-radius: 5px; flex: 1;">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-title">12. 문화·체육·관광 분야 우선 투자사업 2개</div>
+                    <div class="priority-input" style="grid-template-columns: 1fr 1fr;">
+                        <div class="priority-item">
+                            <strong>1순위</strong>
+                            <select name="culture_1">
+                                <option value="">선택하세요</option>
+                                <option value="tourism_development">① 관광자원 개발</option>
+                                <option value="sports_facilities">② 체육시설 확충</option>
+                                <option value="cultural_facilities">③ 문화시설 조성</option>
+                                <option value="festivals">④ 지역축제 활성화</option>
+                                <option value="sports_support">⑤ 생활체육 지원</option>
+                                <option value="cultural_programs">⑥ 문화프로그램 확대</option>
+                                <option value="youth_culture">⑦ 청소년 문화공간</option>
+                                <option value="culture_other">⑧ 기타</option>
+                            </select>
+                        </div>
+                        <div class="priority-item">
                             <strong>2순위</strong>
                             <select name="culture_2">
                                 <option value="">선택하세요</option>
@@ -535,6 +717,34 @@
                                 <option value="youth_culture">⑦ 청소년 문화공간</option>
                                 <option value="culture_other">⑧ 기타</option>
                             </select>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <div class="option-display">
+                            <label>① 관광자원 개발</label>
+                        </div>
+                        <div class="option-display">
+                            <label>② 체육시설 확충</label>
+                        </div>
+                        <div class="option-display">
+                            <label>③ 문화시설 조성</label>
+                        </div>
+                        <div class="option-display">
+                            <label>④ 지역축제 활성화</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑤ 생활체육 지원</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑥ 문화프로그램 확대</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑦ 청소년 문화공간</label>
+                        </div>
+                        <div class="option-display" style="display: flex; align-items: center;">
+                            <label style="margin-right: 10px;">⑧ 기타</label>
+                            <input type="text" name="culture_other_text" placeholder="기타 의견을 적어주세요" style="padding: 8px; border: 1px solid #ddd; border-radius: 5px; flex: 1;">
                         </div>
                     </div>
                 </div>
@@ -567,6 +777,31 @@
                                 <option value="crime_prevention">⑥ 범죄 예방시설</option>
                                 <option value="environment_other">⑦ 기타</option>
                             </select>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <div class="option-display">
+                            <label>① 쓰레기 처리시설 개선</label>
+                        </div>
+                        <div class="option-display">
+                            <label>② 상하수도 정비</label>
+                        </div>
+                        <div class="option-display">
+                            <label>③ 하천 정비</label>
+                        </div>
+                        <div class="option-display">
+                            <label>④ 공원·녹지 조성</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑤ 재해 예방시설</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑥ 범죄 예방시설</label>
+                        </div>
+                        <div class="option-display" style="display: flex; align-items: center;">
+                            <label style="margin-right: 10px;">⑦ 기타</label>
+                            <input type="text" name="environment_other_text" placeholder="기타 의견을 적어주세요" style="padding: 8px; border: 1px solid #ddd; border-radius: 5px; flex: 1;">
                         </div>
                     </div>
                 </div>
@@ -605,6 +840,37 @@
                             </select>
                         </div>
                     </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <div class="option-display">
+                            <label>① 의료서비스 개선</label>
+                        </div>
+                        <div class="option-display">
+                            <label>② 노인복지 확대</label>
+                        </div>
+                        <div class="option-display">
+                            <label>③ 아동·보육 지원</label>
+                        </div>
+                        <div class="option-display">
+                            <label>④ 장애인 복지</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑤ 청소년 복지</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑥ 저소득층 지원</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑦ 여성·가족 지원</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑧ 출산·육아 지원</label>
+                        </div>
+                        <div class="option-display" style="display: flex; align-items: center;">
+                            <label style="margin-right: 10px;">⑨ 기타</label>
+                            <input type="text" name="welfare_other_text" placeholder="기타 의견을 적어주세요" style="padding: 8px; border: 1px solid #ddd; border-radius: 5px; flex: 1;">
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="question">
@@ -637,6 +903,31 @@
                             </select>
                         </div>
                     </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <div class="option-display">
+                            <label>① 농산물 유통 지원</label>
+                        </div>
+                        <div class="option-display">
+                            <label>② 친환경 농업 기반</label>
+                        </div>
+                        <div class="option-display">
+                            <label>③ 브랜드 사업</label>
+                        </div>
+                        <div class="option-display">
+                            <label>④ 축산업 현대화</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑤ 농촌 환경 개선</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑥ 청년 농업인 지원</label>
+                        </div>
+                        <div class="option-display" style="display: flex; align-items: center;">
+                            <label style="margin-right: 10px;">⑦ 기타</label>
+                            <input type="text" name="agriculture_other_text" placeholder="기타 의견을 적어주세요" style="padding: 8px; border: 1px solid #ddd; border-radius: 5px; flex: 1;">
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="question">
@@ -665,6 +956,28 @@
                                 <option value="parking_facilities">⑤ 주차시설 확충</option>
                                 <option value="infrastructure_other">⑥ 기타</option>
                             </select>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <div class="option-display">
+                            <label>① 도로 확충·개선</label>
+                        </div>
+                        <div class="option-display">
+                            <label>② 대중교통 확충</label>
+                        </div>
+                        <div class="option-display">
+                            <label>③ 농어촌 도로 정비</label>
+                        </div>
+                        <div class="option-display">
+                            <label>④ 정보화 인프라</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑤ 주차시설 확충</label>
+                        </div>
+                        <div class="option-display" style="display: flex; align-items: center;">
+                            <label style="margin-right: 10px;">⑥ 기타</label>
+                            <input type="text" name="infrastructure_other_text" placeholder="기타 의견을 적어주세요" style="padding: 8px; border: 1px solid #ddd; border-radius: 5px; flex: 1;">
                         </div>
                     </div>
                 </div>
@@ -699,6 +1012,31 @@
                             </select>
                         </div>
                     </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <div class="option-display">
+                            <label>① 산업단지 조성</label>
+                        </div>
+                        <div class="option-display">
+                            <label>② 기업 유치</label>
+                        </div>
+                        <div class="option-display">
+                            <label>③ 중소기업 지원</label>
+                        </div>
+                        <div class="option-display">
+                            <label>④ 일자리 창출</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑤ 청년 창업 지원</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑥ 상권 활성화</label>
+                        </div>
+                        <div class="option-display" style="display: flex; align-items: center;">
+                            <label style="margin-right: 10px;">⑦ 기타</label>
+                            <input type="text" name="economy_other_text" placeholder="기타 의견을 적어주세요" style="padding: 8px; border: 1px solid #ddd; border-radius: 5px; flex: 1;">
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="question">
@@ -731,6 +1069,31 @@
                             </select>
                         </div>
                     </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <div class="option-display">
+                            <label>① 청소년 활동시설</label>
+                        </div>
+                        <div class="option-display">
+                            <label>② 진로·취업 지원</label>
+                        </div>
+                        <div class="option-display">
+                            <label>③ 청년 주거 지원</label>
+                        </div>
+                        <div class="option-display">
+                            <label>④ 창업·창작 공간</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑤ 문화·여가 프로그램</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑥ 상담·복지 서비스</label>
+                        </div>
+                        <div class="option-display" style="display: flex; align-items: center;">
+                            <label style="margin-right: 10px;">⑦ 기타</label>
+                            <input type="text" name="youth_program_other_text" placeholder="기타 의견을 적어주세요" style="padding: 8px; border: 1px solid #ddd; border-radius: 5px; flex: 1;">
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="question">
@@ -761,6 +1124,28 @@
                             </select>
                         </div>
                     </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <div class="option-display">
+                            <label>① 공공임대주택</label>
+                        </div>
+                        <div class="option-display">
+                            <label>② 주거환경 개선</label>
+                        </div>
+                        <div class="option-display">
+                            <label>③ 마을 공동시설</label>
+                        </div>
+                        <div class="option-display">
+                            <label>④ 빈집 정비</label>
+                        </div>
+                        <div class="option-display">
+                            <label>⑤ 정주여건 개선</label>
+                        </div>
+                        <div class="option-display" style="display: flex; align-items: center;">
+                            <label style="margin-right: 10px;">⑥ 기타</label>
+                            <input type="text" name="housing_other_text" placeholder="기타 의견을 적어주세요" style="padding: 8px; border: 1px solid #ddd; border-radius: 5px; flex: 1;">
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -770,7 +1155,7 @@
                 
                 <div class="question">
                     <div class="question-title">20. 청양군이 2026년에 꼭 추진해야 한다고 생각하는 사업이나 정책이 있다면 자유롭게 제안해 주세요.</div>
-                    <textarea class="text-input" name="project_suggestion" placeholder="예: 청소년 문화공간 조성, 친환경 농업 지원 확대, 대중교통 개선 등 구체적인 사업이나 정책을 제안해주세요."></textarea>
+                    <textarea class="text-input" name="project_suggestion" placeholder="친환경 농업 지원 확대, 대중교통 개선 등 구체적인 사업이나 정책을 제안해주세요."></textarea>
                 </div>
                 
                 <div class="question">
@@ -818,142 +1203,289 @@
         </form>
     </div>
     
-    <script>
-        // 진행률 표시 및 기본 폼 기능
-        function updateProgress() {
-            const form = document.getElementById('surveyForm');
-            const questions = form.querySelectorAll('input, select');
-            const answered = Array.from(questions).filter(q => {
-                if (q.type === 'radio' || q.type === 'checkbox') {
-                    return form.querySelector(`input[name="${q.name}"]:checked`);
-                }
-                return q.value;
-            });
-            
-            const progress = (answered.length / questions.length) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-        }
-        
+   <script>
+        // (귀하의 자바스크립트 그대로입니다)
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('surveyForm');
             const inputs = form.querySelectorAll('input, select, textarea');
-            
+
+            function updateProgress() {
+                const questions = form.querySelectorAll('input, select');
+                const answered = Array.from(questions).filter(q => {
+                    if (q.type === 'radio' || q.type === 'checkbox') {
+                        return form.querySelector(`input[name="${q.name}"]:checked`);
+                    }
+                    return q.value;
+                });
+                const progress = (answered.length / questions.length) * 100;
+                document.getElementById('progressFill').style.width = progress + '%';
+            }
+
+            updateProgress();
+
             inputs.forEach(input => {
                 input.addEventListener('change', updateProgress);
                 input.addEventListener('input', updateProgress);
             });
-            
-            updateProgress();
-            
-            // 중복 선택 방지 (우선순위)
-            const prioritySelects = form.querySelectorAll('select[name^="priority_"]');
-            prioritySelects.forEach(select => {
-                select.addEventListener('change', function() {
-                    const selectedValue = this.value;
-                    const otherSelects = Array.from(prioritySelects).filter(s => s !== this);
-                    
-                    otherSelects.forEach(otherSelect => {
-                        const options = otherSelect.querySelectorAll('option');
-                        options.forEach(option => {
-                            if (option.value === selectedValue && selectedValue !== '') {
-                                option.disabled = true;
-                            } else {
-                                option.disabled = false;
-                            }
+
+            const allPriorityQuestions = form.querySelectorAll('.question');
+            allPriorityQuestions.forEach(question => {
+                const selects = question.querySelectorAll('select');
+                if (selects.length < 2) return;
+
+                selects.forEach(select => {
+                    select.addEventListener('change', function() {
+                        const selectedValue = this.value;
+                        selects.forEach(otherSelect => {
+                            if (otherSelect === this) return;
+
+                            const options = otherSelect.querySelectorAll('option');
+                            options.forEach(option => {
+                                if (option.value === selectedValue && selectedValue !== '') {
+                                    option.disabled = true;
+                                } else {
+                                    const isSelectedInAny = Array.from(selects).some(s => s !== otherSelect && s.value === option.value);
+                                    option.disabled = isSelectedInAny && option.value !== '';
+                                }
+                            });
                         });
                     });
                 });
             });
-            
-            // 폼 제출 처리
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // 필수 항목 유효성 검사
-                const requiredItems = [
-                    {name: 'gender', label: '1. 성별'},
-                    {name: 'age', label: '2. 연령대'},
-                    {name: 'job', label: '3. 직업'},
-                    {name: 'location', label: '4. 거주 지역'},
-                    {name: 'residence_period', label: '5. 청양군 거주기간'},
-                    {name: 'budget_adequacy', label: '6. 예산 투자 적절성'},
-                    {name: 'budget_shortage', label: '7. 재원 부족시 대책'},
-                    {name: 'financial_expansion', label: '8. 재정 확충 노력'},
-                    {name: 'budget_cut', label: '9. 예산 삭감 우선순위'},
-                    {name: 'priority_1', label: '10. 전체 분야 1순위'},
-                    {name: 'priority_2', label: '10. 전체 분야 2순위'},
-                    {name: 'priority_3', label: '10. 전체 분야 3순위'},
-                    {name: 'info_method', label: '22. 정보 제공 방식'}
-                ];
-                
-                let missingItems = [];
-                
-                requiredItems.forEach(item => {
-                    if (item.name === 'info_method') {
-                        // 체크박스는 하나 이상 선택되어야 함
-                        const checkboxes = form.querySelectorAll(`input[name="${item.name}"]:checked`);
-                        if (checkboxes.length === 0) {
-                            missingItems.push(item.label);
-                        }
-                    } else {
-                        // 라디오 버튼과 셀렉트 박스
-                        const element = form.querySelector(`input[name="${item.name}"]:checked`) || 
-                                       form.querySelector(`select[name="${item.name}"]`);
-                        
-                        if (!element || (element.tagName === 'SELECT' && !element.value)) {
-                            missingItems.push(item.label);
-                        }
-                    }
-                });
-                
-                // 우선순위 중복 검사
-                const priority1 = form.querySelector('select[name="priority_1"]').value;
-                const priority2 = form.querySelector('select[name="priority_2"]').value;
-                const priority3 = form.querySelector('select[name="priority_3"]').value;
-                
-                if (priority1 === priority2 || priority2 === priority3 || priority1 === priority3) {
-                    alert('❌ 10번 전체 분야 우선순위는 서로 다른 분야를 선택해주세요.');
-                    return;
+
+
+ const errorModalOverlay = document.getElementById('errorModalOverlay');
+    const errorModalContent = document.getElementById('errorModalContent');
+    const errorModalClose = document.getElementById('errorModalClose');
+
+    errorModalClose.addEventListener('click', function() {
+        errorModalOverlay.style.display = 'none';
+    });
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const errorContainer = document.getElementById('errorContainer');
+    errorContainer.style.display = 'none';
+    errorContainer.innerHTML = '';
+
+    const missingItems = [];
+    const duplicateItems = [];
+    let firstErrorElement = null;
+
+    const requiredItems = [
+        {name: 'gender', label: '1. 성별', type: 'radio'},
+        {name: 'age', label: '2. 연령대', type: 'radio'},
+        {name: 'job', label: '3. 직업', type: 'radio'},
+        {name: 'location', label: '4. 거주 지역', type: 'radio'},
+        {name: 'residence_period', label: '5. 청양군 거주기간', type: 'radio'},
+        {name: 'budget_adequacy', label: '6. 예산 투자 적절성', type: 'radio'},
+        {name: 'budget_shortage', label: '7. 재원 부족시 대책', type: 'radio'},
+        {name: 'financial_expansion', label: '8. 재정 확충 노력', type: 'radio'},
+        {name: 'budget_cut', label: '9. 예산 삭감 우선순위', type: 'radio'},
+        {name: 'priority_1', label: '10. 전체 분야 1순위', type: 'select'},
+        {name: 'priority_2', label: '10. 전체 분야 2순위', type: 'select'},
+        {name: 'priority_3', label: '10. 전체 분야 3순위', type: 'select'},
+        {name: 'info_method', label: '22. 정보 제공 방식', type: 'checkbox'}
+    ];
+
+    requiredItems.forEach(item => {
+        if (item.type === 'radio') {
+            const checked = form.querySelector(`input[name="${item.name}"]:checked`);
+            if (!checked) {
+                missingItems.push(item.label);
+                if (!firstErrorElement) {
+                    firstErrorElement = form.querySelector(`input[name="${item.name}"]`);
                 }
-                
-                if (missingItems.length > 0) {
-                    alert(`❌ 다음 필수 항목을 선택해주세요:\n\n${missingItems.join('\n')}`);
-                    return;
+            }
+        } else if (item.type === 'select') {
+            const select = form.querySelector(`select[name="${item.name}"]`);
+            if (!select || !select.value) {
+                missingItems.push(item.label);
+                if (!firstErrorElement) {
+                    firstErrorElement = select;
                 }
-                
-                // 데이터 수집 및 저장
-                const formData = new FormData(form);
-                const surveyData = {};
-                
-                // 모든 폼 데이터를 객체로 변환
-                for (let [key, value] of formData.entries()) {
-                    if (surveyData[key]) {
-                        // 체크박스 등 다중 선택인 경우 배열로 변환
-                        if (Array.isArray(surveyData[key])) {
-                            surveyData[key].push(value);
-                        } else {
-                            surveyData[key] = [surveyData[key], value];
-                        }
-                    } else {
-                        surveyData[key] = value;
-                    }
+            }
+        } else if (item.type === 'checkbox') {
+            const checked = form.querySelectorAll(`input[name="${item.name}"]:checked`);
+            if (checked.length === 0) {
+                missingItems.push(item.label);
+                if (!firstErrorElement) {
+                    firstErrorElement = form.querySelector(`input[name="${item.name}"]`);
                 }
-                
-                // 제출 시간 추가
-                surveyData.submitted_at = new Date().toISOString();
-                surveyData.submitted_time_kr = new Date().toLocaleString('ko-KR');
-                
-                // 성공 메시지
-                alert('✅ 설문 응답이 성공적으로 제출되었습니다!\n\n소중한 의견 감사합니다. 🙏\n\n청양군 발전을 위해 소중히 활용하겠습니다.');
-                
-                // 콘솔에 데이터 출력 (개발자 확인용)
-                console.log('📊 설문 응답 데이터:', surveyData);
-                
-                // 폼 초기화
-                form.reset();
-                updateProgress();
-            });
-        });
+            }
+        }
+    });
+
+    // 10번 중복검사
+    const p1 = form.querySelector('select[name="priority_1"]').value;
+    const p2 = form.querySelector('select[name="priority_2"]').value;
+    const p3 = form.querySelector('select[name="priority_3"]').value;
+    const prioritySet = new Set([p1, p2, p3]);
+    if (p1 && p2 && p3 && prioritySet.size < 3) {
+        duplicateItems.push('10. 전체 분야 1,2,3순위는 서로 달라야 합니다');
+        if (!firstErrorElement) {
+            firstErrorElement = form.querySelector('select[name="priority_1"]');
+        }
+    }
+
+    // 11~19 중복검사
+// 11~19 중복 및 기타 의견 검사
+for (let i = 11; i <= 19; i++) {
+    const s1 = form.querySelector(`select[name="${sectionName(i)}_1"]`);
+    const s2 = form.querySelector(`select[name="${sectionName(i)}_2"]`);
+    const t1 = form.querySelector(`input[name="${sectionName(i)}_other_text"]`);
+    const t2 = t1; // 하나의 input을 같이 쓰므로 동일 참조
+
+    if (!s1 || !s2) continue;
+
+    const v1 = s1.value;
+    const v2 = s2.value;
+
+    if (!v1) {
+        missingItems.push(`${i}. ${sectionLabel(i)} 1순위`);
+        if (!firstErrorElement) firstErrorElement = s1;
+    } else if (v1 === `${sectionName(i)}_other` && t1 && !t1.value.trim()) {
+        missingItems.push(`${i}. ${sectionLabel(i)} 1순위 '기타' 의견을 입력해주세요`);
+        if (!firstErrorElement) firstErrorElement = t1;
+    }
+
+    if (!v2) {
+        missingItems.push(`${i}. ${sectionLabel(i)} 2순위`);
+        if (!firstErrorElement) firstErrorElement = s2;
+    } else if (v2 === `${sectionName(i)}_other` && t2 && !t2.value.trim()) {
+        missingItems.push(`${i}. ${sectionLabel(i)} 2순위 '기타' 의견을 입력해주세요`);
+        if (!firstErrorElement) firstErrorElement = t2;
+    }
+
+    if (v1 && v2 && v1 === v2) {
+        duplicateItems.push(`${i}. ${sectionLabel(i)} 1,2순위가 중복되었습니다`);
+        if (!firstErrorElement) firstErrorElement = s1;
+    }
+}
+
+
+    if (missingItems.length > 0 || duplicateItems.length > 0) {
+        let html = '';
+        if (missingItems.length > 0) {
+            html += `❌ <strong>선택되지 않은 항목</strong>:<ul>${missingItems.map(i => `<li>${i}</li>`).join('')}</ul>`;
+        }
+        if (duplicateItems.length > 0) {
+            html += `❌ <strong>중복 선택 오류</strong>:<ul>${duplicateItems.map(i => `<li>${i}</li>`).join('')}</ul>`;
+        }
+        errorModalContent.innerHTML = html;
+        errorModalOverlay.style.display = 'flex';
+
+        if (firstErrorElement) {
+            firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+    }
+
+    // fetch()로 Google Sheets에 데이터 전송
+    const data = {
+        gender: form.querySelector('input[name="gender"]:checked')?.value,
+        age: form.querySelector('input[name="age"]:checked')?.value,
+        job: form.querySelector('input[name="job"]:checked')?.value,
+        location: form.querySelector('input[name="location"]:checked')?.value,
+        residence_period: form.querySelector('input[name="residence_period"]:checked')?.value,
+        budget_adequacy: form.querySelector('input[name="budget_adequacy"]:checked')?.value,
+        budget_shortage: form.querySelector('input[name="budget_shortage"]:checked')?.value,
+        financial_expansion: form.querySelector('input[name="financial_expansion"]:checked')?.value,
+        budget_cut: form.querySelector('input[name="budget_cut"]:checked')?.value,
+        priority_1: form.querySelector('select[name="priority_1"]')?.value,
+        priority_2: form.querySelector('select[name="priority_2"]')?.value,
+        priority_3: form.querySelector('select[name="priority_3"]')?.value,
+        info_method: Array.from(form.querySelectorAll('input[name="info_method"]:checked')).map(cb => cb.value),
+        project_suggestion: form.querySelector('textarea[name="project_suggestion"]')?.value,
+        age_specific_needs: form.querySelector('textarea[name="age_specific_needs"]')?.value
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbwjAbttlfY8mqDkdRjEcowphv0PSFo2iT3s0VMn54gIkC12Q574-gYTx5XugDGKsTzr/exec", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(res => res.json())
+    .then(res => {
+        console.log("✅ Google Sheet 저장 성공:", res);
+    })
+    .catch(err => {
+        console.error("❌ Google Sheet 저장 실패:", err);
+    });
+
+
+    alert('✅ 설문 응답이 성공적으로 제출되었습니다!');
+    form.reset();
+    updateProgress();
+});
+
+function sectionName(index) {
+    const names = {
+        11: 'education',
+        12: 'culture',
+        13: 'environment',
+        14: 'welfare',
+        15: 'agriculture',
+        16: 'infrastructure',
+        17: 'economy',
+        18: 'youth_program',
+        19: 'housing'
+    };
+    return names[index];
+}
+
+function sectionLabel(index) {
+    const labels = {
+        11: '교육·평생학습',
+        12: '문화·체육·관광',
+        13: '환경·안전',
+        14: '보건·복지',
+        15: '농림·축산',
+        16: '도로·교통·정보화',
+        17: '지역경제·일자리',
+        18: '청소년·청년',
+        19: '주거·정주여건'
+    };
+    return labels[index];
+}
+}); 
+
     </script>
+<!-- 모달 배경 -->
+<div id="errorModalOverlay" style="
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+">
+    <!-- 모달 내용 -->
+    <div id="errorModal" style="
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        max-width: 500px;
+        width: 90%;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        font-size: 0.95em;
+    ">
+        <div id="errorModalContent"></div>
+        <button id="errorModalClose" style="
+            margin-top: 15px;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        ">닫기</button>
+    </div>
+</div>
+
 </body>
-</html>">
+</html>
